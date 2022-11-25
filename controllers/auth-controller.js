@@ -10,8 +10,8 @@ export const createUser = async (req, res) => {
     await user.save();
     const token = await generateJWT(user.id, user.name);
     return res.status(201).json({ ok: true,
-      uid: usuario.id,
-      name: usuario.name,
+      uid: user.id,
+      name: user.name,
       token});
   } catch (error) {
     console.log(error);
