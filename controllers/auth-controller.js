@@ -24,7 +24,7 @@ export const loginUser = async (req, res) => {
     const requestPassword = await user.comparePassword(password);
     if (!requestPassword) return res.status(403).json({ error: 'Las credenciales no son correctas.' });
     const token = await generateJWT(user.id, user.name);
-    return res.json({ token });
+    return res.json({  uid: user.id, name: user.name,token });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error: 'Upsss, algo salió mal en el servidor.' })
@@ -34,5 +34,5 @@ export const loginUser = async (req, res) => {
 export const renewToken = async (req, res) => {
   const {uid, name }= req
   const token = await generateJWT(uid, name);
-  res.json({ok: true, token})
+  res.json({  ok: true, uid, name})
 }
